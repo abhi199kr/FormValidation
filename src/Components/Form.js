@@ -7,7 +7,7 @@ const Form = () => {
   const [cpassword,copassword]=useState()
   const [unshow,show]=useState(true)
   
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } ,watch} = useForm();
 const handleRegistration = (data) =>
 {
     data.preventDefault()
@@ -78,14 +78,27 @@ const pvlaidate=(e)=>{
         {/* confirm password */}
         <label>Confirm Password</label>
 
+        <input
+ {...register("confirm", {
+  required: true,
+  validate: (val) => {
+    if (watch('password') != val) {
+      return "password does not match";
+    }
+  },
+ })}
+/>
+{errors.confirm && <span role="alert">{errors.confirm.message} </span>}
+
+
         
        
-       <input type="password" id="p2" value={cpassword}   {...register('password', { required: true, maxLength: 30 })}
+       {/* <input type="password" id="p2" value={cpassword}   {...register('password', { required: true, maxLength: 30 })}
       onChange={e => {
        pvlaidate(e.target.value)
     
 }}
-/>
+/> */}
 
 {/* <div>
 {
